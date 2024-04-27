@@ -1,0 +1,5 @@
+backup
+node_modules
+response/suburben_cities/*
+response/train_stations/*
+*.md

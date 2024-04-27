@@ -1,0 +1,13 @@
+{
+  "environment": "prod",
+  "suburbanResidentCities": {
+    "he": "Passed QA",
+    "en": [
+      { "city_id": 971, "city_name": "הגושרים", "city_name_trans": "Хагошрим" }
+    ],
+    "ru": "Passed QA",
+    "ar": [
+      { "city_id": 909, "city_name": "גבעולים", "city_name_trans": "ﭼڤعوليم" }
+    ]
+  }
+}

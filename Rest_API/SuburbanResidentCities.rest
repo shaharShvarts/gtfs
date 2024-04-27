@@ -1,0 +1,19 @@
+
+### SuburbanResidentCities
+### lenguage:[he/en/ru/ar]
+
+### SuburbanResidentCities:DEV
+get https://api-test1.hopon.co/mot/profiles/suburbanResidentCities
+Authorization: Token 85eb848ac702070bdb50a6f27ac518157755898a
+Accept-Language: ru
+
+### suburbanResidentCities:STG
+get https://papi73-staging.hopon.co/mot/profiles/suburbanResidentCities
+Authorization: Token dea2f31e3a01d1c8cd5a4274265c7fd2b1256474
+Accept-Language: en
+
+### SuburbanResidentCities:prod
+get https://api-prod.hopon.co/mot/profiles/suburbanResidentCities
+Authorization: Token 65c1ba16b7eedede0e0c0ff083ebe8dba79426d6
+Accept-Language: ar
+

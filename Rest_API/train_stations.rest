@@ -1,0 +1,20 @@
+
+### train_stations
+### lenguage:[he/en/ru/ar]
+
+### train_stations:DEV
+GET https://api-test1.hopon.co/mot/api_gateway/station_service/train_stations/me
+Authorization: Token 85eb848ac702070bdb50a6f27ac518157755898a
+Accept-Language: en
+
+### train_stations:STG
+GET https://papi73-staging.hopon.co/mot/api_gateway/station_service/train_stations/me
+Authorization: Token dea2f31e3a01d1c8cd5a4274265c7fd2b1256474
+Accept-Language: he
+
+
+### train_stations:PROD
+GET https://api-prod.hopon.co/mot/api_gateway/station_service/train_stations/me
+Authorization: Token 65c1ba16b7eedede0e0c0ff083ebe8dba79426d6
+Accept-Language: en
+
