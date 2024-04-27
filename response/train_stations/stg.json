@@ -1,9 +1,0 @@
-{
-  "environment": "stg",
-  "train_stations": {
-    "he": "Passed QA",
-    "en": "Passed QA",
-    "ru": "Passed QA",
-    "ar": "Passed QA"
-  }
-}
