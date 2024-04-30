@@ -18,6 +18,7 @@ const GetParams = (params) => {
   }
 
   const auth = params.find((val) => val.startsWith("--auth"))?.split("=")[1];
+
   const env = params.find((val) => val.startsWith("--env="))?.split("=")[1];
 
   // If the argument(--env) is not provided
