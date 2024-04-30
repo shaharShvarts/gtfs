@@ -10,7 +10,10 @@ const hebRegex = new RegExp("^[\u0590-\u05FF 0-9'-/].*$");
   const [baseUrl, env, authorization, info] = GetParams(params);
 
   if (info) return console.log(info);
-  if (!authorization) return console.log(baseUrl);
+  if (!authorization)
+    return console.log(
+      "The authorization is not present or has not been provided."
+    );
 
   const invalid_names = {};
   const url = `${baseUrl}/profiles/suburbanResidentCities`;

@@ -6,8 +6,8 @@ const GetParams = (params) => {
         Testing of translations of cities according to the selected environment ('dev' | 'stg' | 'prod').
 
         Usage:
-        node suburbanResidentCities --env=[environment] [options]
-        e.g ->> node suburbanResidentCities --env=dev --auth=85eb848ac702070bdb50a6f27ac518157755898a
+        node suburban_cities --env=[environment] [options]
+        e.g ->> node suburban_cities --env=dev --auth=85eb848ac702070bdb50a6f27ac518157755898a
 
         Options:
         -h, --help        Display help for the given command.
@@ -27,14 +27,26 @@ const GetParams = (params) => {
     return [info];
   }
 
-  const undefinedEnvironment = `
+  let baseUrl;
+  switch (env) {
+    case "dev":
+      baseUrl = "https://api-test1.hopon.co/mot";
+      break;
+    case "stg":
+      baseUrl = "https://papi73-staging.hopon.co/mot";
+      break;
+    case "prod":
+      baseUrl = "https://api-prod.hopon.co/mot";
+      break;
+    default:
+      baseUrl = `
         No environment named '${env}' was found
         Please choose from the list ('dev' | 'stg' | 'prod')
         For help please pass the arguments -h or --help
-  `;
+      `;
+      break;
+  }
 
-  const baseUrl =
-    process.env[`${env.toUpperCase()}_BASE_URL`] || undefinedEnvironment;
   const authorization =
     auth || process.env[`${env.toUpperCase()}_AUTHORIZATION`];
   return [baseUrl, env.toLowerCase(), authorization];
