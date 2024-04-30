@@ -1,7 +1,7 @@
-import fs from "fs";
 import "dotenv/config";
+import WriteResults from "./utils/writeResults.js";
 import Gtfs from "./utils/gtfsRequest.js";
-import GetParams from "./utils/GetParams.js";
+import GetParams from "./utils/getParams.js";
 import RegexTest from "./utils/regexTest.js";
 const hebRegex = new RegExp("^[\u0590-\u05FF 0-9'-/].*$");
 
@@ -47,13 +47,5 @@ const hebRegex = new RegExp("^[\u0590-\u05FF 0-9'-/].*$");
     suburbanResidentCities: invalid_names,
   };
 
-  fs.writeFile(
-    `./response/suburben_cities/${env}.json`,
-    JSON.stringify(result),
-    (err) => {
-      if (err) throw err;
-      console.log("Data written to file");
-    }
-  );
-  console.log(JSON.stringify(result));
+  WriteResults("./response/suburban_cities", env, result);
 })();

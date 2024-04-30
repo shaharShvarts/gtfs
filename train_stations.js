@@ -1,7 +1,7 @@
 import fs from "fs";
 import "dotenv/config";
 import Gtfs from "./utils/gtfsRequest.js";
-import GetParams from "./utils/GetParams.js";
+import GetParams from "./utils/getParams.js";
 import RegexTest from "./utils/regexTest.js";
 const hebRegex = new RegExp("^[\u0590-\u05FF 0-9'-/].*$");
 
