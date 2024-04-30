@@ -1,5 +1,5 @@
-import fs from "fs";
 import "dotenv/config";
+import WriteResults from "./utils/writeResults.js";
 import Gtfs from "./utils/gtfsRequest.js";
 import GetParams from "./utils/getParams.js";
 import RegexTest from "./utils/regexTest.js";
@@ -49,13 +49,5 @@ const hebRegex = new RegExp("^[\u0590-\u05FF 0-9'-/].*$");
     train_stations: invalid_names,
   };
 
-  fs.writeFile(
-    `./response/train_stations/${env}.json`,
-    JSON.stringify(result),
-    (err) => {
-      if (err) throw err;
-      console.log("Data written to file");
-    }
-  );
-  console.log(JSON.stringify(result));
+  WriteResults("./response/train_stations", env, result);
 })();
