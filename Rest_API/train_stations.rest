@@ -5,7 +5,7 @@
 ### train_stations:DEV
 GET https://api-test1.hopon.co/mot/api_gateway/station_service/train_stations/me
 Authorization: Token 85eb848ac702070bdb50a6f27ac518157755898a
-Accept-Language: en
+Accept-Language: ru
 
 ### train_stations:STG
 GET https://papi73-staging.hopon.co/mot/api_gateway/station_service/train_stations/me

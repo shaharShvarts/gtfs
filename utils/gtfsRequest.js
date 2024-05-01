@@ -5,10 +5,10 @@ const httpsAgent = new https.Agent({
   rejectUnauthorized: false,
 });
 
-const Gtfs = async (url, language, authorization) => {
+const Gtfs = async (endpoint, language, authorization) => {
   const options = {
     method: "GET",
-    url,
+    url: endpoint,
     headers: {
       Accept: "application/json",
       "accept-language": language,
@@ -23,7 +23,7 @@ const Gtfs = async (url, language, authorization) => {
 
     return gtfs;
   } catch (err) {
-    console.log(`${err.message} (authorization: Token ${authorization})`);
+    console.log(err.message);
     return false;
   }
 };
