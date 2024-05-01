@@ -23,9 +23,8 @@ const Gtfs = async (url, language, authorization) => {
 
     return gtfs;
   } catch (err) {
-    return console.log(
-      `${err.message} (authorization: Token ${authorization})`
-    );
+    console.log(`${err.message} (authorization: Token ${authorization})`);
+    return false;
   }
 };
 

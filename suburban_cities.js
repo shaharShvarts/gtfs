@@ -1,19 +1,19 @@
 import "dotenv/config";
-import WriteResults from "./utils/writeResults.js";
+import Help from "./utils/help.js";
 import Gtfs from "./utils/gtfsRequest.js";
 import GetParams from "./utils/getParams.js";
 import RegexTest from "./utils/regexTest.js";
+import WriteResults from "./utils/writeResults.js";
 const hebRegex = new RegExp("^[\u0590-\u05FF 0-9'-/].*$");
 
 (async () => {
   const [node, script, ...params] = process.argv;
-  const [baseUrl, env, authorization, info] = GetParams(params);
+  if (params.find((val) => val == "-h" || val == "--help")) {
+    return console.log(Help("suburban_cities"));
+  }
 
-  if (info) return console.log(info);
-  if (!authorization)
-    return console.log(
-      "The authorization is not present or has not been provided."
-    );
+  const [baseUrl, env, authorization] = GetParams(params) || [];
+  if (!baseUrl || !env || !authorization) return;
 
   const invalid_names = {};
   const url = `${baseUrl}/profiles/suburbanResidentCities`;
@@ -23,6 +23,7 @@ const hebRegex = new RegExp("^[\u0590-\u05FF 0-9'-/].*$");
       const regex = new RegExp(test.regex);
 
       const gtfs = await Gtfs(url, language, authorization);
+      if (!gtfs) return;
       const suburbanResidentCities = gtfs.data.suburbanResidentCities;
       for (const city of suburbanResidentCities) {
         if (!regex.test(city.name_trans)) {
@@ -38,14 +39,8 @@ const hebRegex = new RegExp("^[\u0590-\u05FF 0-9'-/].*$");
       }
       !invalid_names[language] && (invalid_names[language] = "Passed QA");
     }
+    WriteResults("./response/suburban_cities", env, invalid_names);
   } catch (err) {
-    if (err) throw err;
+    console.log(err);
   }
-
-  const result = {
-    environment: `${env}`,
-    suburbanResidentCities: invalid_names,
-  };
-
-  WriteResults("./response/suburban_cities", env, result);
 })();

@@ -1,9 +1,14 @@
 import fs from "fs";
-const WriteResults = (directoryPath, env, result) => {
+const WriteResults = (directoryPath, env, invalid_names) => {
   // Check if the directory exists
   if (!fs.existsSync(directoryPath)) {
     fs.mkdirSync(directoryPath, { recursive: true });
   }
+
+  const result = {
+    environment: `${env}`,
+    suburbanResidentCities: invalid_names,
+  };
 
   fs.writeFile(
     `${directoryPath}/${env}.json`,
