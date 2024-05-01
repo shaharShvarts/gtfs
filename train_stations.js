@@ -16,7 +16,7 @@ import WriteResults from "./utils/writeResults.js";
     if (!baseUrl || !authorization) return;
 
     const invalid_names = {};
-    const hebRegex = /^[\u0590-\u05FF 0-9'-/]*$/;
+    const hebRegex = RegexTest.find((entry) => entry.lang === "he").regex;
     const endpoint = `${baseUrl}/api_gateway/station_service/train_stations/me`;
     for (const test of RegexTest) {
       const { lang, regex } = test;
