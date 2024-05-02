@@ -39,7 +39,12 @@ import WriteResults from "./utils/writeResults.js";
       }
       !invalid_names[lang] && (invalid_names[lang] = "Passed QA");
     }
-    WriteResults("./response/train_stations", env, invalid_names);
+    WriteResults(
+      "./response/train_stations",
+      env,
+      invalid_names,
+      "train_stations"
+    );
   } catch (err) {
     console.log(err);
   }

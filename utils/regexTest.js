@@ -1,4 +1,3 @@
-// i will give you
 const RegexTest = [
   { lang: "he", regex: /^[\u0590-\u05FF 0-9'-/].*$/ },
   { lang: "en", regex: /^[\s\w\d\?><;,\`().–{\}\[\]\-_\+=!@\#\$%^&\*\|\']*$/ }, ///^[A-Za-z 0-9'-/`]*$/

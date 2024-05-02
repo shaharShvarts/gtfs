@@ -37,7 +37,12 @@ import WriteResults from "./utils/writeResults.js";
       }
       !invalid_names[lang] && (invalid_names[lang] = "Passed QA");
     }
-    WriteResults("./response/suburban_cities", env, invalid_names);
+    WriteResults(
+      "./response/suburban_cities",
+      env,
+      invalid_names,
+      "suburbanResidentCities"
+    );
   } catch (err) {
     console.log(err);
   }

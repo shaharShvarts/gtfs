@@ -1,5 +1,5 @@
 import fs from "fs";
-const WriteResults = (directoryPath, env, invalid_names) => {
+const WriteResults = (directoryPath, env, invalid_names, service) => {
   // Check if the directory exists
   if (!fs.existsSync(directoryPath)) {
     fs.mkdirSync(directoryPath, { recursive: true });
@@ -7,7 +7,7 @@ const WriteResults = (directoryPath, env, invalid_names) => {
 
   const result = {
     environment: `${env}`,
-    suburbanResidentCities: invalid_names,
+    [service]: invalid_names,
   };
 
   fs.writeFile(
