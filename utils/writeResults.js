@@ -1,24 +1,26 @@
 import fs from "fs";
-const WriteResults = (directoryPath, env, invalid_names, service) => {
-  // Check if the directory exists
-  if (!fs.existsSync(directoryPath)) {
-    fs.mkdirSync(directoryPath, { recursive: true });
-  }
 
+const WriteResults = (environment, service, invalid_names) => {
+  // The structure of the error file
   const result = {
-    environment: `${env}`,
+    environment: `${environment}`,
     [service]: invalid_names,
   };
 
-  fs.writeFile(
-    `${directoryPath}/${env}.json`,
-    JSON.stringify(result),
-    (err) => {
-      if (err) throw err;
-      console.log("Data written to file");
-    }
-  );
-  console.log(JSON.stringify(result));
+  // Check if the directory exists
+  const directoryPath = `./response/${service}`;
+  try {
+    if (!fs.existsSync(directoryPath))
+      fs.mkdirSync(directoryPath, { recursive: true });
+
+    fs.writeFileSync(
+      `${directoryPath}/${environment}.json`,
+      JSON.stringify(result)
+    );
+    console.log("file written successfully", directoryPath);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export default WriteResults;

@@ -1,0 +1,19 @@
+npm i @slack/bolt
+
+
+SLACK_SIGNING_SECRET="cd181883dd4e7bed633afcc64621180e"
+SLACK_BOT_TOKEN="" FROM Oauth & permissions
+SLACK_CHANNEL=""
+
+import slack from "@slack/bolt"
+
+const app = new slack.App({
+	signingSecret: process.env.SLACK_SIGNING_SECRET,
+	token: process.env.SLACK_BOT_TOKEN
+})
+
+await app.client.chat.postMessage({
+	token: process.env.SLACK_BOT_TOKEN,
+	channel: process.env.SLACK_CHANNEL,
+	text:"Test"
+})

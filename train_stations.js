@@ -6,18 +6,20 @@ import RegexTest from "./utils/regexTest.js";
 import WriteResults from "./utils/writeResults.js";
 
 (async () => {
+  const service = "train_stations";
   const [node, script, ...params] = process.argv;
   if (params.find((val) => val == "-h" || val == "--help")) {
-    return console.log(Help("train_stations"));
+    return console.log(Help(service));
   }
 
   try {
-    const [baseUrl, env, authorization] = GetParams(params) || [];
-    if (!baseUrl || !authorization) return;
+    const [baseEnvironment, environment, authorization] =
+      GetParams(params) || [];
+    if (!baseEnvironment) return;
 
     const invalid_names = {};
     const hebRegex = RegexTest.find((entry) => entry.lang === "he").regex;
-    const endpoint = `${baseUrl}/api_gateway/station_service/train_stations/me`;
+    const endpoint = `${baseEnvironment}/api_gateway/station_service/train_stations/me`;
     for (const test of RegexTest) {
       const { lang, regex } = test;
       const gtfs = await Gtfs(endpoint, lang, authorization);
@@ -39,12 +41,9 @@ import WriteResults from "./utils/writeResults.js";
       }
       !invalid_names[lang] && (invalid_names[lang] = "Passed QA");
     }
-    WriteResults(
-      "./response/train_stations",
-      env,
-      invalid_names,
-      "train_stations"
-    );
+
+    WriteResults(environment, service, invalid_names);
+    // console.log(JSON.stringify(result));
   } catch (err) {
     console.log(err);
   }

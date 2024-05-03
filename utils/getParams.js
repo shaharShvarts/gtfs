@@ -1,26 +1,28 @@
 const GetParams = (params) => {
   try {
-    const env = params.find((val) => val.startsWith("--env="))?.split("=")[1];
-    if (!env) {
+    const environment = params
+      .find((val) => val.startsWith("--env="))
+      ?.split("=")[1];
+    if (!environment) {
       throw new Error(
         "The environment the command should run under ('dev' | 'stg' | 'prod')"
       );
     }
 
-    let baseUrl;
-    switch (env) {
+    let baseEnvironment;
+    switch (environment) {
       case "dev":
-        baseUrl = "https://api-test1.hopon.co/mot";
+        baseEnvironment = "https://api-test1.hopon.co/mot";
         break;
       case "stg":
-        baseUrl = "https://papi73-staging.hopon.co/mot";
+        baseEnvironment = "https://papi73-staging.hopon.co/mot";
         break;
       case "prod":
-        baseUrl = "https://api-prod.hopon.co/mot";
+        baseEnvironment = "https://api-prod.hopon.co/mot";
         break;
       default:
         throw new Error(`
-          No environment named '${env}' was found
+          No environment named '${environment}' was found.
           Please choose from the list ('dev' | 'stg' | 'prod')
           For help please pass the arguments -h or --help
         `);
@@ -28,7 +30,7 @@ const GetParams = (params) => {
 
     const auth = params.find((val) => val.startsWith("--auth"))?.split("=")[1];
     const authorization =
-      auth || process.env[`${env.toUpperCase()}_AUTHORIZATION`];
+      auth || process.env[`${environment.toUpperCase()}_AUTHORIZATION`];
 
     if (!authorization)
       throw new Error(`
@@ -40,7 +42,7 @@ const GetParams = (params) => {
         Please replace 'xxxxx' with your unique authorization number.
         `);
 
-    return [baseUrl, env.toLowerCase(), authorization];
+    return [baseEnvironment, environment.toLowerCase(), authorization];
   } catch (err) {
     console.log(err.message);
     return false;
