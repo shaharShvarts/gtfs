@@ -1,5 +1,5 @@
-import Gtfs from "../src/gtfsRequest.js";
-import RegexTest from "./regexTest.js";
+import Gtfs from "./gtfsRequest.js";
+import RegexTest from "../utils/regexTest.js";
 
 const TestValidNames = async (service, authorization) => {
   const { serviceName, endpoint, entry, condition, fields } = service;

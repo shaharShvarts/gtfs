@@ -1,7 +1,7 @@
 import Help from "./utils/help.js";
 import GetParams from "./src/getParams.js";
-import TestValidNames from "./utils/testValidNames.js";
-import WriteResults from "./utils/writeResults.js";
+import TestValidNames from "./src/testValidNames.js";
+import WriteResults from "./src/writeResults.js";
 import GtfsBot from "./src/gtfsBot.js";
 import GetServices from "./src/getServices.js";
 
