@@ -22,8 +22,8 @@ const Gtfs = async (endpoint, language, authorization) => {
     const { data: gtfs } = await axios.request(options);
 
     return gtfs;
-  } catch (err) {
-    console.log(err.message);
+  } catch (error) {
+    console.log(error.message);
     return false;
   }
 };

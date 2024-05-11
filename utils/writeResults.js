@@ -1,25 +1,25 @@
 import fs from "fs";
 
-const WriteResults = (environment, service, invalid_names) => {
+const WriteResults = (environment, serviceName, invalid_names) => {
   // The structure of the error file
   const result = {
     environment: `${environment}`,
-    [service]: invalid_names,
+    [serviceName]: invalid_names,
   };
 
   // Check if the directory exists
-  const directoryPath = `./response/${service}`;
+  const directoryPath = `./response/${serviceName}`;
   try {
     if (!fs.existsSync(directoryPath))
       fs.mkdirSync(directoryPath, { recursive: true });
 
     fs.writeFileSync(
       `${directoryPath}/${environment}.json`,
-      JSON.stringify(result)
+      JSON.stringify(result, null, 2)
     );
     console.log("file written successfully", directoryPath);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
   }
 };
 

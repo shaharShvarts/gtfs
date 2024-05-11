@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 const GetParams = (params) => {
   try {
     const environment = params
@@ -43,9 +45,8 @@ const GetParams = (params) => {
         `);
 
     return [baseEnvironment, environment.toLowerCase(), authorization];
-  } catch (err) {
-    console.log(err.message);
-    return false;
+  } catch (error) {
+    return console.log(error.message);
   }
 };
 
