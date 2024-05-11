@@ -1,21 +1,16 @@
 import axios from "axios";
-import * as https from "https";
+import Colors from "../utils/colors.js";
 
-const httpsAgent = new https.Agent({
-  rejectUnauthorized: false,
-});
-
-const Gtfs = async (endpoint, language, authorization) => {
+const Gtfs = async (url, language, authorization) => {
   const options = {
     method: "GET",
-    url: endpoint,
+    url,
     headers: {
       Accept: "application/json",
       "accept-language": language,
       "Content-Type": "application/txt;charset=UTF-8",
       authorization: `Token ${authorization}`,
     },
-    httpsAgent,
   };
 
   try {
@@ -23,7 +18,7 @@ const Gtfs = async (endpoint, language, authorization) => {
 
     return gtfs;
   } catch (error) {
-    console.log(error.message);
+    console.log(Colors.FgMagenta, error.message, Colors.Reset);
     return false;
   }
 };

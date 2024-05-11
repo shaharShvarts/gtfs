@@ -10,7 +10,7 @@ Accept-Language: he
 ### suburbanResidentCities:STG
 get https://papi73-staging.hopon.co/mot/profiles/suburbanResidentCities
 Authorization: Token dea2f31e3a01d1c8cd5a4274265c7fd2b1256474
-Accept-Language: en
+Accept-Language: ru
 
 ### SuburbanResidentCities:prod
 get https://api-prod.hopon.co/mot/profiles/suburbanResidentCities
