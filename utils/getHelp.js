@@ -13,11 +13,11 @@ const GetHelp = `
     node [js file] --env=[environment] [options]
     e.g ->> node gtfs --env=dev --auth=85eb848ac888070bdb50a666ac518157755898a
 
-    Options:
-    -h, --help        Display help for the given command.
-    [--auth]          Force to use specific authorization.
-    --env[mandatory]  The environment the command should run under ('dev' | 'stg' | 'prod').
-    --service         Let you to run specific service(GtfsBot will not post)
+    Arguments:
+    -h, --help  Display help for the given command - optional.
+    --auth      Force to use specific authorization - optional.
+    --env       The environment the command should run under ['dev' | 'stg' | 'prod'] - optional.
+    --service   The ability to execute a singular service (GtfsBot will not post) - optional.
     
     Please choose a service from the list below
     ${serviceList}

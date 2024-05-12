@@ -25,8 +25,8 @@ import GetServices from "./src/getServices.js";
     }
   }
 
-  // const test = await GtfsBot(environment, testResult);
-  // console.error(test);
+  const test = await GtfsBot(environment, testResult);
+  console.error(test);
 
   // console.log("done", testResult);
 })();
