@@ -1,53 +1,44 @@
 import "dotenv/config";
-import slack from "@slack/bolt";
+import Colors from "../utils/colors.js";
+import { WebClient } from "@slack/web-api";
 
-const GtfsBot = async (environment, testResult) => {
-  const hasAllPassed = testResult.length === 0; // Checking if array is empty
+const GtfsBot = async (filePaths, env) => {
+  // Checking if array is empty
+  const hasAllPassed = !filePaths.length;
 
-  const app = new slack.App({
-    token: process.env.SLACK_BOT_TOKEN,
-    signingSecret: process.env.SLACK_SIGNING_SECRET,
-  });
+  const token = process.env.SLACK_BOT_TOKEN;
+  const client = new WebClient(token);
+  const channel_id = process.env.SLACK_CHANNEL_ID;
 
   try {
-    await app.client.chat.postMessage({
+    const result = await client.chat.postMessage({
       token: process.env.SLACK_BOT_TOKEN,
-      channel: process.env.SLACK_CHANNEL,
+      channel: channel_id,
       text: hasAllPassed
-        ? `*GTFS passed QA in ${environment.toUpperCase()}* ✅`
-        : `*GTFS failed QA in ${environment.toUpperCase()}* ❌ 
-        Here are the results:`,
+        ? `*GTFS passed QA in ${env}* ✅`
+        : `*GTFS failed QA in ${env}* ❌`,
     });
-  } catch (error) {
-    return error.message;
-  }
+    console.log(result.message.text);
 
-  if (!hasAllPassed) {
-    for (const results of testResult) {
-      const blocks = [
-        {
-          type: "section",
-          text: {
-            type: "mrkdwn",
-            text: `${JSON.stringify(results, null, 2)}`,
-          },
-        },
-      ];
-
-      try {
-        await app.client.chat.postMessage({
-          token: process.env.SLACK_BOT_TOKEN,
-          channel: process.env.SLACK_CHANNEL,
-          text: "Gtfs test result",
-          blocks,
+    if (!hasAllPassed) {
+      for (const filePath of filePaths) {
+        const result = await client.files.uploadV2({
+          channel_id,
+          file: filePath,
+          filename: filePath.split("/").pop(),
         });
-      } catch (error) {
-        return error.message;
+        console.log(result);
       }
     }
+  } catch (error) {
+    const num = error.message.split(`\n`).length;
+    console.error(
+      Colors.FgMagenta,
+      `${error.stack.split("\n")[num]}
+    ${error.message}`,
+      Colors.Reset
+    );
   }
-
-  return "The message has been successfully sent to Slack.";
 };
 
 export default GtfsBot;

@@ -1,32 +1,38 @@
-import GetParams from "./src/getParams.js";
-import TestValidNames from "./src/testValidNames.js";
-import WriteResults from "./src/writeResults.js";
 import GtfsBot from "./src/gtfsBot.js";
+import GetParams from "./src/getParams.js";
 import GetServices from "./src/getServices.js";
+import WriteResults from "./src/writeResults.js";
+import TestValidNames from "./src/testValidNames.js";
 
 (async () => {
   const [node, script, ...params] = process.argv;
 
-  const [environment, authorization, serviceName] = GetParams(params) || [];
-  if (!environment) return;
+  const [env, authorization, serviceName] = GetParams(params) || [];
+  if (!authorization) return;
 
-  const Services = GetServices(serviceName) || [];
+  const Services = GetServices(serviceName);
+  if (!Services) return;
 
-  let testResult = [];
+  const filePaths = [];
+  const dirPath = `./response`;
+  const fileType = ".json";
   for (const service of Services) {
-    const { hasPassed, serviceName, invalid_names } =
-      (await TestValidNames(environment, service, authorization)) || {};
+    const { hasPassed, name, invalid_names } =
+      (await TestValidNames(env, service, authorization)) || {};
 
-    if (!serviceName) return;
+    if (!name) return;
 
     if (!hasPassed) {
-      testResult.push({ [serviceName]: invalid_names });
-      WriteResults(environment, serviceName, invalid_names);
+      const fileName = `${env}-${name}${fileType}`;
+      const fullPath = `${dirPath}/${fileName}`;
+      filePaths.push(fullPath);
+      WriteResults(dirPath, fullPath, env, name, invalid_names);
     }
   }
 
-  const test = await GtfsBot(environment, testResult);
-  console.error(test);
+  if (!serviceName) {
+    await GtfsBot(filePaths, env);
+  }
 
-  // console.log("done", testResult);
+  console.log("done");
 })();

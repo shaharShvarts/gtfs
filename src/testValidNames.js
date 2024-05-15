@@ -3,7 +3,7 @@ import RegexTest from "../utils/regexTest.js";
 import Colors from "../utils/colors.js";
 
 const TestValidNames = async (environment, service, authorization) => {
-  const { serviceName, endpoint, entry, condition, fields } = service;
+  const { name, endpoint, entry, condition, fields } = service;
 
   let baseEnvironment = process.env[`${environment.toUpperCase()}_ENVIRONMENT`];
   const url = `${baseEnvironment}${endpoint}`;
@@ -35,9 +35,15 @@ const TestValidNames = async (environment, service, authorization) => {
       // !invalid_names[lang] && (invalid_names[lang] = "Passed QA");
     }
 
-    return { hasPassed, serviceName, invalid_names };
+    return { hasPassed, name, invalid_names };
   } catch (error) {
-    console.error(Colors.FgRed, error, Colors.Reset);
+    const num = error.message.split(`\n`).length;
+    console.error(
+      Colors.FgRed,
+      `${error.stack.split("\n")[num]}
+    ${error.message}`,
+      Colors.Reset
+    );
   }
 };
 

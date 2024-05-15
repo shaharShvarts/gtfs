@@ -1,11 +1,10 @@
-import { services } from "../src/getServices.js";
+import { Services } from "../src/getServices.js";
 
-const serviceList = services.map(
-  (service, i) => `${i} - ${service.serviceName}`
-).join(`
+const serviceList = Services.map((service, i) => `${i} - ${service.name}`)
+  .join(`
     `);
 
-const GetHelp = `
+const Help = `
     Description:
     Testing of translations of cities according to the selected environment ('dev' | 'stg' | 'prod').
 
@@ -24,4 +23,4 @@ const GetHelp = `
 
 `;
 
-export default GetHelp;
+export default Help;

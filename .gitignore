@@ -1,6 +1,5 @@
 /backup
 /node_modules
 /response
-*.md
 .env
-.txt
+*.cmd

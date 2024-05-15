@@ -18,8 +18,13 @@ const Gtfs = async (url, language, authorization) => {
 
     return gtfs;
   } catch (error) {
-    console.log(Colors.FgMagenta, error.message, Colors.Reset);
-    return false;
+    const num = error.message.split(`\n`).length;
+    console.error(
+      Colors.FgMagenta,
+      `${error.stack.split("\n")[num]}
+    ${error.message}`,
+      Colors.Reset
+    );
   }
 };
 

@@ -1,37 +1,28 @@
 import Colors from "../utils/colors.js";
-
-const services = [
-  {
-    serviceName: "train_stations",
-    endpoint: `/api_gateway/station_service/train_stations/me`,
-    entry: "train_stations",
-    condition: "stop_name",
-    fields: ["stop_code", "stop_id", "stop_lon", "stop_lat", "stop_name"],
-  },
-  {
-    serviceName: "suburban_cities",
-    endpoint: `/profiles/suburbanResidentCities`,
-    entry: "suburbanResidentCities",
-    condition: "name_trans",
-    fields: ["id", "name", "name_trans"],
-  },
-];
+import Services from "../utils/services.js";
 
 const GetServices = (serviceName) => {
-  if (serviceName) {
-    const service = services[serviceName];
-    if (!service) {
-      console.error(
-        Colors.FgCyan,
-        `Service not found - please pass -h or --help for more information.`,
-        Colors.Reset
-      );
-      return false;
+  try {
+    if (serviceName) {
+      const service = Services.filter(({}, i) => i == serviceName);
+
+      if (!service.length)
+        throw new Error(`
+          Service not found - please pass -h or --help for more information.`);
+      return service;
     }
-    return [service];
+
+    return Services;
+  } catch (error) {
+    const num = error.message.split(`\n`).length;
+    return console.error(
+      Colors.FgBrightRed,
+      `${error.stack.split("\n")[num]}
+      ${error.message}`,
+      Colors.Reset
+    );
   }
-  return services;
 };
 
-export { services };
+export { Services };
 export default GetServices;

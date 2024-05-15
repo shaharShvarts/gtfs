@@ -1,25 +1,29 @@
 import fs from "fs";
+import Colors from "../utils/colors.js";
 
-const WriteResults = (environment, serviceName, invalid_names) => {
+const WriteResults = (dirPath, fullPath, env, name, invalid_names) => {
   // The structure of the error file
   const result = {
-    environment: `${environment}`,
-    [serviceName]: invalid_names,
+    environment: `${env}`,
+    [name]: invalid_names,
   };
 
-  // Check if the directory exists
-  const directoryPath = `./response/${serviceName}`;
   try {
-    if (!fs.existsSync(directoryPath))
-      fs.mkdirSync(directoryPath, { recursive: true });
+    // Check if the directory exists
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
+    }
 
-    fs.writeFileSync(
-      `${directoryPath}/${environment}.json`,
-      JSON.stringify(result, null, 2)
-    );
-    console.log("file written successfully", directoryPath);
+    fs.writeFileSync(fullPath, JSON.stringify(result, null, 2));
+    console.log("The file has been successfully written to", fullPath);
   } catch (error) {
-    console.log(error);
+    const num = error.message.split(`\n`).length;
+    console.error(
+      Colors.FgMagenta,
+      `${error.stack.split("\n")[num]}
+    ${error.message}`,
+      Colors.Reset
+    );
   }
 };
 
