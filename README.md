@@ -19,7 +19,7 @@ Run the command `npm i` in the destination folder\
 to install a package and any packages that it depends on.
 
 ```
-npm i or npm install
+npm install
 ```
 
 ## Parameters
