@@ -50,23 +50,27 @@ e.g. `node gtfs --env=dev --service=0`.
 
 ## Usage
 
+#### Print gtfs command line options
+
 ```
-# print gtfs command line options
 node gtfs -h
 ```
 
+#### Basic use on the dev
+
 ```
-# basic use on the dev
 node gtfs --env=dev
 ```
 
+#### Using with authorization on the dev
+
 ```
-# using with authorization on the dev
 node gtfs --env=dev --auth=xxxxx
 ```
 
+#### Using a single service on the dev
+
 ```
-# using a single service on the dev
 node gtfs --env=dev --service=1
 ```
 
